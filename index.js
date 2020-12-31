@@ -34,7 +34,7 @@ module.exports = class Files {
   };
 
   actOnFileDownload = async (url, savePath, httpconfig, callback) => {
-    this.logDiag(`Acting on downloaded file: ${path}`);
+    this.logDiag(`Acting on downloaded file: ${savePath}`);
     callback = typeof httpconfig === 'function' ? httpconfig : callback;
     httpconfig = typeof httpconfig === 'function' ? null : httpconfig;
     savePath = await this.downloadFile(url, savePath, httpconfig).catch((e) => {
@@ -72,7 +72,11 @@ module.exports = class Files {
 
   async downloadFile(url, savePath, httpconfig, callback) {
     try {
-      httpconfig = { ...config, ...httpconfig };
+      if (httpconfig) {
+        httpconfig = { ...config, ...httpconfig };
+      } else {
+        httpconfig = config;
+      }
       const file = await axios
         .get(url, httpconfig)
         .then((response) => response.data);
