@@ -66,7 +66,7 @@ module.exports = class Files {
         }, 2000);
       })
       .on('error', (error) => {
-        this.logError(`Error from chokidar watch: ${error}`);
+        this.logDebug(`Error from chokidar watch: ${error}`);
       });
   }
 
