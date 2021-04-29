@@ -51,7 +51,7 @@ module.exports = class Files {
   /********* Plugin Functions *********/
 
   setupFileWatcher() {
-    const watcher = chokidar.watch(this.settings.watchDir);
+    const watcher = chokidar.watch(this.settings.watchDir, this.settings.extras);
     watcher
       .on('add', (path) => {
         setTimeout(() => {

@@ -1,3 +1,7 @@
 {
-  "watchDir": "d:\\torrents"
+  "watchDir": "d:\\torrents",
+  "extras": {
+    "usePolling": false,
+    "interval": 1000
+  }
 }
