@@ -2,6 +2,7 @@ const chokidar = require('chokidar');
 const axios = require('axios');
 const fs = require('fs-extra');
 const path = require('path');
+const { extname } = require('path');
 const { filename } = require(`${global.appRoot}/lib/helpers`);
 
 const config = {
@@ -51,7 +52,20 @@ module.exports = class Files {
   /********* Plugin Functions *********/
 
   setupFileWatcher() {
-    const watcher = chokidar.watch(this.settings.watchDir, this.settings.extras);
+    const options = Object.assign({}, this.settings.extras, {
+      ignored: (p) => {
+        let ignore;
+        if (!p.match(/\..+$/)) {
+          ignore = false;
+        } else {
+          const file = p.split(path.sep).pop();
+          ignore = !this.settings.extras.acceptedFileExtensions.includes(extname(file));
+        }
+        this.logDiag(`Checking file should be ignored: ${p} ${ignore}`);
+        return ignore;
+      }
+    })
+    const watcher = chokidar.watch(this.settings.watchDir, options);
     watcher
       .on('add', (path) => {
         setTimeout(() => {

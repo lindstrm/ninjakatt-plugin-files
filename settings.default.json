@@ -2,8 +2,10 @@
   "watchDir": "d:\\torrents",
   "extras": {
     "usePolling": false,
-    "interval": 1000,
-    "ignored": "^[^.]+$|\\.(?!(torrent)$)([^.]+$)",
+    "interval": 10,
+    "acceptedFileExtensions": [
+      ".torrent"
+    ],
     "ignoreInitial": true
   }
 }
