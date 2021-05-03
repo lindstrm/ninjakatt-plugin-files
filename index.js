@@ -68,16 +68,9 @@ module.exports = class Files {
     const watcher = chokidar.watch(this.settings.watchDir, options);
     watcher
       .on('add', (path) => {
-        setTimeout(() => {
-          this.logDiag(`File added: ${path}`);
-          this.emit('file.add', path);
-        }, 2000);
-      })
-      .on('change', (path) => {
-        setTimeout(() => {
-          this.logDiag(`File changed: ${path}`);
-          this.emit('file.change', path);
-        }, 2000);
+        this.logDiag(`File added: ${path}`);
+        this.emit('file.add', path);
+        watcher.unwatch(path);
       })
       .on('error', (error) => {
         this.logDebug(`Error from chokidar watch: ${error}`);

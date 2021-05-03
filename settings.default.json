@@ -6,6 +6,8 @@
     "acceptedFileExtensions": [
       ".torrent"
     ],
-    "ignoreInitial": true
+    "ignoreInitial": true,
+    "awaitWriteFinish": true,
+    "ignorePermissionErrors": true
   }
 }
